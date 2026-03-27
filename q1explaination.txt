@@ -1,0 +1,30 @@
+// Q1  
+    /*
+    idea:
+        want to let thread acquire the lock for each ingredient but will end up with deadlock
+    e.g. thread 1 need salt and pepper, it takes salt thread 2 need pepper and salt it takes pepper.
+    thread 1 will wait for thread 2 and vice versa end up with deadlock. 
+
+    solution:
+        we could use global order lock to break the dependency cycle to insure that deadlock does not happen
+        we do this by reordering the locks needed for each thread in increasing order
+        
+
+    first try:
+        first we reorder the locks needed for each thread
+        then use synchronized to acquire the lock for each ingredient recursively
+        this does not work since when doing the replacement
+        a cook want 1234, get 123 lock, but not 4 yet.
+        a shopper want 4 -> 6, it get 4 then replace it with 6
+        the cook is now stuck
+
+    second try:
+        replace only the name of the ingredient not the lock
+        asked about this on ed discussion, rejected
+    
+    third try:
+        want a barrier kind of behavior that will let all cook thread finish before the shopper thread start
+        did some research find out reentrant read write lock that will do this precisely
+        now we can just lock cooks with read lock and shopper with write lock
+        now when a shopper want to come in all cook must finish first which is the behavior we want
+    */
