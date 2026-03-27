@@ -33,6 +33,10 @@ Cook thread:    pantryGate.readLock().lock()  → sort picks → acquire ingredi
 Shopper thread: pantryGate.writeLock().lock() → sort picks → replace ingredients recursively
 ```
 
+### Demo
+
+![Q1 Demo](q1.gif)
+
 ### Run
 ```bash
 java q1.java <n> <k> <m> <K>
@@ -82,6 +86,10 @@ Philosophers ──take_full()────► tray empties
 ```
 
 Each monitor method uses `while`-loop guards (not `if`) to handle spurious wakeups safely.
+
+### Demo
+
+![Q2 Demo](q2.gif)
 
 ### Run
 ```bash
